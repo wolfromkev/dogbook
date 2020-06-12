@@ -3,6 +3,9 @@ const app = require('express')();
 const FBAuth = require('./utility/firebaseAuth');
 const { db } = require('./utility/admin');
 
+const cors = require('cors');
+app.use(cors());
+
 const {
 	signup,
 	login,

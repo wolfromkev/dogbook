@@ -23,6 +23,10 @@ import User from './pages/user';
 import LandingPage from './pages/landingPage';
 
 const theme = createMuiTheme(themeFile);
+
+Axios.defaults.baseURL =
+	'https://us-central1-social-media-project-aa6cb.cloudfunctions.net/api';
+
 const token = localStorage.FBIdToken;
 
 if (token) {
