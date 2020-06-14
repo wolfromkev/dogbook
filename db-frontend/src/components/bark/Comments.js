@@ -20,6 +20,8 @@ const style = {
 	commentBody: {
 		overflow: 'auto',
 		display: 'inline-block',
+		maxWidth: '100%',
+		wordWrap: 'break-word',
 	},
 };
 

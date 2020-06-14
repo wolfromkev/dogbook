@@ -119,7 +119,7 @@ class Profile extends Component {
 								<div className={classes.profile}>
 									<Tooltip
 										title='Click here to change your profile image!'
-										placement='right'
+										placement='top'
 									>
 										<div className='image-wrapper'>
 											<img

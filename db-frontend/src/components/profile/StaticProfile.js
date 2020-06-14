@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 //MUI
 import withStyles from '@material-ui/core/styles/withStyles';
 import MUILink from '@material-ui/core/Link';
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
+import FollowDog from '../bark/FollowDog';
 
 const styles = {
 	paper: {
@@ -60,6 +62,11 @@ const styles = {
 			margin: '20px 10px',
 		},
 	},
+	followButton2: {
+		bottom: '10%',
+		left: '50%',
+		position: 'absolute',
+	},
 };
 
 const StaticProfile = (props) => {
@@ -67,6 +74,14 @@ const StaticProfile = (props) => {
 		classes,
 		profile: { handle, createdAt, imageUrl, bio, website, location },
 	} = props;
+	const { authenticated } = props.user;
+
+	const followButton = authenticated ? (
+		<FollowDog className={classes.followButton2} userHandle={handle}>
+			{' '}
+		</FollowDog>
+	) : null;
+
 	return (
 		<Paper className={classes.paper}>
 			<div className={classes.profile}>
@@ -104,6 +119,7 @@ const StaticProfile = (props) => {
 					)}
 					<CalendarToday color='primary' />{' '}
 					<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
+					<div>{followButton}</div>
 				</div>
 			</div>
 		</Paper>
@@ -115,4 +131,9 @@ StaticProfile.prototypes = {
 	classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(StaticProfile);
+const mapStateToProps = (state) => ({
+	data: state.data,
+	user: state.user,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(StaticProfile));

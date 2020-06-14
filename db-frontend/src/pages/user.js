@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { getUserData } from '../redux/actions/dataActions';
 import sadDog from '../images/sadDog.jpg';
 import Paper from '@material-ui/core/Paper';
+import { Redirect } from 'react-router-dom';
 
 const styles = {
 	sadDog: {
@@ -48,9 +49,34 @@ class user extends Component {
 				console.log(err);
 			});
 	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.match.params.handle !== prevProps.match.params.handle) {
+			const handle = this.props.match.params.handle;
+			this.props.getUserData(handle);
+			axios
+				.get(`/dog/${handle}`)
+				.then((res) => {
+					this.setState({
+						profile: res.data.user,
+					});
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
+	}
 	render() {
 		const { barks, loading } = this.props.data;
 		const { classes } = this.props;
+		const {
+			authenticated,
+			credentials: { handle },
+		} = this.props.user;
+
+		if (this.props.match.params.handle === handle) {
+			return <Redirect to='/home' />;
+		}
 
 		const barksMarkup = loading ? (
 			<BarkSkeleton />
@@ -58,7 +84,7 @@ class user extends Component {
 			<Fragment>
 				<Paper className={classes.Paper} levation={3}>
 					<p>No Barks from this user so far...</p>
-					<img src={sadDog} className={classes.sadDog} />
+					<img src={sadDog} className={classes.sadDog} alt='No post dog' />
 				</Paper>
 			</Fragment>
 		) : (
@@ -66,7 +92,7 @@ class user extends Component {
 		);
 
 		return (
-			<Grid container spacing={16}>
+			<Grid container>
 				<Grid item sm={8} xs={12}>
 					{barksMarkup}
 				</Grid>
@@ -89,6 +115,7 @@ user.prototypes = {
 
 const mapStateToProps = (state) => ({
 	data: state.data,
+	user: state.user,
 });
 
 export default connect(mapStateToProps, { getUserData })(

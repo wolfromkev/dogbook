@@ -5,7 +5,7 @@ import Axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
 //MUI
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 //redux
@@ -21,6 +21,7 @@ import AuthRoute from './utility/AuthRoute';
 import Home from './pages/home';
 import User from './pages/user';
 import LandingPage from './pages/landingPage';
+import Messaging from './components/layout/Messanger';
 
 const theme = createMuiTheme(themeFile);
 
@@ -44,10 +45,11 @@ if (token) {
 class App extends Component {
 	render() {
 		return (
-			<MuiThemeProvider theme={theme}>
+			<ThemeProvider theme={theme}>
 				<Provider store={store}>
 					<BrowserRouter>
 						<Navbar />
+						<Messaging />
 						<Switch>
 							<AuthRoute exact path='/' component={LandingPage} />
 							<div className={classes.container}>
@@ -62,7 +64,7 @@ class App extends Component {
 						</Switch>
 					</BrowserRouter>
 				</Provider>
-			</MuiThemeProvider>
+			</ThemeProvider>
 		);
 	}
 }

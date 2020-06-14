@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import uniqid from 'uniqid';
+import { getAllUsers } from '../../redux/actions/dataActions';
 
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -11,7 +13,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
-import { getAllUsers } from '../../redux/actions/dataActions';
 import { Typography } from '@material-ui/core';
 
 const styles = {
@@ -63,7 +64,7 @@ class Following extends Component {
 				<Fragment>
 					{followingArray.map((dog) => {
 						return (
-							<Fragment>
+							<Fragment key={uniqid()}>
 								<MUILink
 									component={Link}
 									to={`/dogs/${dog.handle}`}

@@ -1,5 +1,7 @@
-.navContainer {
+.MuiAppBar-root {
+	flex-direction: row;
 }
+
 .navBar {
 	background: linear-gradient(
 		45deg,
@@ -7,10 +9,67 @@
 		rgba(32, 11, 210, 1) 100%
 	);
 	position: relative;
-	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 .dogBookLogo {
-	align-items: flex-start;
-	flex-grow: 1;
+	margin-top: 0;
+	margin-bottom: 0;
+	cursor: pointer;
+	color: white;
+}
+
+.search {
+	border-radius: 3px;
+	background-color: white;
+	flex: 1;
+	display: flex;
+	height: auto;
+}
+.search:hover {
+	background-color: white;
+}
+
+.searchIcon {
+	color: black;
+	height: 100%;
+	width: 1.25em;
+	padding-right: 0.5em;
+	padding-left: 0.5em;
+	cursor: pointer;
+	border-radius: 3px;
+}
+.inputRoot {
+	color: inherit;
+	width: 100%;
+	padding-left: 0.5rem;
+}
+.inputInput {
+	padding: 2rem;
+	padding-left: 2rem;
+	transition: none;
+	width: 100%;
+}
+.iconTray {
+	display: flex;
+	flex: 1;
+	justify-content: flex-end;
+	color: white;
+}
+.popper {
+	margin-left: -0.5rem;
+	z-index: 1200;
+	margin-top: 0.1rem;
+	height: 20rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.dogbookLogoLink {
+	color: white;
+	flex: 1;
+	margin-top: 0;
+	margin-bottom: 0;
+	cursor: pointer;
 }

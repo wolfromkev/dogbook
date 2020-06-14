@@ -105,7 +105,7 @@ class LoginSignup extends Component {
 			email: this.state.email,
 			password: this.state.password,
 			confirmPassword: this.state.confirmPassword,
-			handle: this.state.handle,
+			handle: this.state.handle.toLocaleLowerCase(),
 		};
 		this.props.signUpUser(newUserData, this.props.history);
 	};

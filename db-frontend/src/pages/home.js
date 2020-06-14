@@ -15,8 +15,6 @@ class Home extends Component {
 	};
 
 	componentDidMount() {
-		//const following = this.props.user.following;
-
 		this.props.getBarks();
 	}
 
@@ -64,7 +62,7 @@ class Home extends Component {
 		return (
 			<Fragment>
 				{switchToggle}
-				<Grid container spacing={16}>
+				<Grid container>
 					<Grid item sm={8} xs={12}>
 						{barkMarkup}
 					</Grid>

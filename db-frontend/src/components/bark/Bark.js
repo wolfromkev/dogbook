@@ -32,7 +32,7 @@ const style = {
 		padding: 15,
 		objectFit: 'cover',
 		color: 'white',
-		maxWidth: '100%',
+		width: '100%',
 	},
 	cardTitle: {
 		top: '80%',
@@ -42,10 +42,14 @@ const style = {
 	hr: {
 		visibility: 'hidden',
 	},
-	barkBody: {
-		overflow: 'auto',
-		display: 'block',
-		objectFit: 'cover',
+	bodyContainer: {
+		maxWidth: '100%',
+		wordWrap: 'break-word',
+	},
+	followButton: {
+		bottom: '10%',
+		left: '94%',
+		position: 'absolute',
 	},
 };
 
@@ -102,22 +106,17 @@ class Bark extends Component {
 						{dayjs(createdAt).fromNow()}
 					</Typography>
 					<hr className={classes.hr} />
-					<Typography
-						variant='h4'
-						color='primary-dark'
-						paragraph='true'
-						display='inline'
-						noWrap='true'
-					>
-						{body}
-					</Typography>
+					<div className={classes.bodyContainer}>
+						<Typography variant='h5'> {body}</Typography>
+					</div>
+
 					<hr className={classes.hr} />
 					{likeCount}
 					<LikeButton barkId={barkId} />
 
 					<span>{commentCount}</span>
 					<BarkDialog barkId={barkId} userHandle={userHandle}></BarkDialog>
-					{followButton}
+					<span className={classes.followButton}>{followButton}</span>
 				</CardContent>
 			</Card>
 		);
@@ -125,8 +124,6 @@ class Bark extends Component {
 }
 
 Bark.propTypes = {
-	deleteBark: PropTypes.func.isRequired,
-	dog: PropTypes.object.isRequired,
 	bark: PropTypes.object.isRequired,
 	classes: PropTypes.object.isRequired,
 	openDialog: PropTypes.bool,

@@ -62,7 +62,7 @@ export class FollowDog extends Component {
 	}
 }
 FollowDog.propTypes = {
-	credentials: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired,
 	userHandle: PropTypes.string.isRequired,
 	followUser: PropTypes.func.isRequired,
 	unfollowUser: PropTypes.func.isRequired,

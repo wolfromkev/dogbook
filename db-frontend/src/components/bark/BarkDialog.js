@@ -59,7 +59,6 @@ class BarkDialog extends Component {
 		const { userHandle, barkId } = this.props;
 		const newPath = `/dogs/${userHandle}/bark/${barkId}`;
 		window.history.pushState(null, null, newPath);
-		console.log(window.location);
 		this.setState({ open: true, oldPath, newPath });
 		this.props.getBark(this.props.barkId);
 	};
@@ -78,15 +77,15 @@ class BarkDialog extends Component {
 
 		const dialogMarkup = loading ? (
 			<div className={classes.spinnerDiv}>
-				<CircularProgress size={200} thickness={2} />
+				<CircularProgress size={200} />
 			</div>
 		) : (
-			<Grid container spacing={2}>
-				<Grid item sm={1.5} direction='row' justify='center'>
+			<Grid container>
+				<Grid item>
 					<img src={userImage} alt='Profile' className={classes.profileImage} />
 				</Grid>
 
-				<Grid item sm={9} direction='row' justify='left'>
+				<Grid item>
 					<Typography
 						component={Link}
 						color='primary'
@@ -101,7 +100,7 @@ class BarkDialog extends Component {
 					</Typography>
 				</Grid>
 
-				<Grid item sm={12}>
+				<Grid item>
 					{' '}
 					<Typography variant='h4'>{body}</Typography>
 				</Grid>
@@ -122,12 +121,7 @@ class BarkDialog extends Component {
 					<ChatIcon color='primary'></ChatIcon>
 				</MyButton>
 
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth='sm'
-				>
+				<Dialog open={this.state.open} onClose={this.handleClose} fullWidth>
 					<MyButton
 						toolTip='Close'
 						onClick={this.handleClose}

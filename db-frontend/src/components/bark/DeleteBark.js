@@ -20,7 +20,7 @@ const styles = {
 		position: 'absolute',
 	},
 	dialogBox: {
-		backgroundColor: '#263238',
+		backgroundColor: 'rgba(0,0,0,0.3)',
 	},
 };
 
@@ -56,7 +56,7 @@ class DeleteBark extends Component {
 					onClose={this.handleClose}
 					fullWidth
 					maxWidth='sm'
-					classes={classes.dialogBox}
+					className={classes.dialogBox}
 				>
 					<DialogTitle color='primary'>
 						Are you sure you want to delete this?
