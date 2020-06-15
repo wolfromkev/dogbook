@@ -2,22 +2,20 @@
 	position: fixed;
 	bottom: 0;
 	right: 2rem;
-	width: 35%;
 	z-index: 1500;
 }
 
 .collapsedMessageBox {
 	display: flex;
-	background-color: white;
+	background-color: #333;
 	border-radius: 2px;
 	height: 2rem;
 	cursor: pointer;
-	width: 65%;
+	width: 20rem;
+	color: #00bcd4;
 }
 
 .chatWord {
-	align-content: center;
-	justify-content: center;
 	padding-top: 0.4rem;
 	padding-left: 0.5rem;
 	text-align: left;
@@ -33,35 +31,230 @@
 	padding-top: 0.25rem;
 	align-items: flex-end;
 	margin-bottom: 1rem;
-	height: 100%;
 }
 
 .enlargedContainer {
 	display: grid;
-	background-color: white;
+	grid-template-areas:
+		'searchContainer chatTitleBox'
+		'chatList chatBody';
+	grid-template-rows: 1fr 11fr;
+	grid-template-columns: 2fr 4fr;
 	border-radius: 2px;
-	cursor: pointer;
 	height: 35rem;
-	width: 100%;
-}
-
-.searchContainer,
-.conversationList,
-.newMessageContainer {
-	background: blue;
+	max-width: 45rem;
 }
 
 .searchContainer {
+	grid-area: searchContainer;
+	align-items: center;
+	padding: 0 0.25rem;
+	box-shadow: 2px 2px rgb(255, 255, 255);
 	border-radius: 3px 0 0 0;
+	background-color: rgb(24, 24, 24);
+}
+
+.searchBox {
+	font-weight: bold;
+	color: #00bcd4;
+	height: 1.5rem;
+	outline: none;
+	margin: 1rem;
+	border-radius: 2px;
+	margin: 1rem;
+	border: none;
+	background-color: rgb(59, 59, 59);
+}
+
+.chatBody {
+	display: grid;
+	grid-template-areas:
+		'chatConversation'
+		'messageBoxContainer';
+	flex-direction: column;
+	overflow-y: auto;
+	grid-template-rows: 28rem 3rem;
 	box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
-	z-index: 1501;
+	border-radius: 0 0 3px 0;
+	background-color: rgb(17, 17, 17);
 }
 
-.newMessageContainer {
-	border-top: 1px solid rgba(0, 0, 0, 0, 25);
-	border-radius: 0 0 0 10px;
+.chatConversation {
+	overflow-x: hidden;
+	overflow-y: auto;
+	grid-area: chatConversation;
+	max-height: 100%;
+	margin: 1rem;
 }
 
-.chatTite,
-.chatForm {
+.fromMessageBox {
+	display: flex;
+	flex-direction: row;
+	margin: 1rem 0 0 0;
+	max-width: 85%;
+}
+
+.messageAvatarBox {
+	display: flex;
+	flex-direction: column;
+	width: 10%;
+	margin-right: 0.5rem;
+}
+
+.messageAvatar {
+	object-fit: contain;
+	width: 100%;
+	border-radius: 50%;
+}
+
+.fromMessage {
+	display: flex;
+	flex: 1;
+	background-color: #00bcd4;
+	color: #333;
+	border-radius: 25px;
+}
+
+.fromMessageContents {
+	padding: 0.1rem;
+}
+
+.fromMessageTime {
+	font-weight: bold;
+	grid-area: fromMessageTime;
+	font-size: 0.75rem;
+	color: #00bcd4;
+}
+
+.toMessageBox {
+	display: flex;
+	right: 0;
+	flex-direction: column;
+	margin: 1rem 0 0 0;
+	margin-left: 6rem;
+}
+
+.toMessage {
+	display: flex;
+	flex: 1;
+	background-color: #333;
+	color: #00bcd4;
+	border-radius: 25px;
+}
+
+.toMessageTime {
+	display: flex;
+	flex: 1;
+	font-size: 0.75rem;
+	color: rgb(100, 100, 100);
+	justify-content: flex-end;
+	margin-right: 1rem;
+}
+.toMessageContents {
+	padding: 0.1rem;
+}
+
+.messageBoxContainer {
+	display: flex;
+	grid-area: messageBoxContainer;
+	width: 100%;
+}
+
+.messageBox {
+	font-weight: bold;
+	padding: 1rem 1rem;
+	color: #00bcd4;
+	flex: 1;
+	border-radius: 2rem;
+	border: none;
+	background-color: #333;
+}
+
+.sendButton {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	position: relative;
+	right: 0;
+}
+
+.chatList {
+	display: flex;
+	grid-area: chatList;
+	flex-direction: column;
+	overflow-y: auto;
+	overflow-x: hidden;
+	box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
+	background-color: rgb(28, 30, 31);
+}
+
+.searchUserBox,
+.chatRoomBox {
+	display: flex;
+	height: 4rem;
+	margin: 0.5rem 0.25rem;
+	background-color: #333;
+	flex-direction: row;
+}
+
+.userAvatar {
+	border-radius: 2px 0 0 2px;
+	flex: 1;
+	height: 100%;
+}
+.infoBox {
+	display: flex;
+	flex-direction: column;
+	padding: 0 0.25rem;
+	flex: 3;
+}
+.userInfo {
+	color: #00bcd4;
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 0.1rem;
+}
+
+.chatInfo {
+	font-size: 0.9rem;
+	color: white;
+	margin-bottom: 0.6rem;
+}
+
+.timeInfo {
+	font-size: 0.75rem;
+	display: flex;
+	justify-content: flex-start;
+	color: #00e1ff;
+}
+
+.chatTitleBox {
+	grid-area: chatTitleBox;
+	display: flex;
+	box-shadow: 0 1px 3px -1px rgba(0, 0, 0, 0.75);
+	border-radius: 0 3px 0 0;
+	background-color: rgb(28, 30, 31);
+}
+
+.chatTitle {
+	font-size: 2rem;
+	color: #00bcd4;
+	display: flex;
+	flex: 4;
+	margin-left: 0.5rem;
+	align-items: center;
+	justify-content: center;
+}
+.chatTitleText {
+	cursor: pointer;
+}
+
+.collapseButton {
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	flex: 1;
+	position: relative;
+	right: 0;
 }
