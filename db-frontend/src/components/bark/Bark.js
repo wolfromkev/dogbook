@@ -83,7 +83,6 @@ class Bark extends Component {
 				commentCount,
 			},
 			user: {
-				authenticated,
 				credentials: { handle },
 			},
 		} = this.props;
@@ -99,7 +98,7 @@ class Bark extends Component {
 		return (
 			<Card className={classes.card}>
 				<div className={classes.imageContainer}>
-					<img src={userImage} className={classes.image}></img>
+					<img src={userImage} className={classes.image} alt='dogPhoto'></img>
 				</div>
 
 				<CardContent className={classes.content}>

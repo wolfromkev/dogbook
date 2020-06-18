@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBarks } from '../redux/actions/dataActions';
 import { withStyles } from '@material-ui/core';
-import { history } from 'react-router-dom';
 import LoginSignup from '../components/profile/loginSignup';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';

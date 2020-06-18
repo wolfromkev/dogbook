@@ -111,7 +111,32 @@ export class Navbar extends Component {
 					</Toolbar>
 				</div>
 			</AppBar>
-		) : null;
+		) : (
+			<AppBar className={classes.navBar}>
+				<div className={classes.navBarColorFix}>
+					<Toolbar>
+						<MUILink
+							component={Link}
+							to={`/`}
+							color='primary'
+							underline='none'
+							className={classes.dogbookLogoLink}
+						>
+							<h1 className={classes.dogBookLogo}>
+								DogBook <PetsIcon />
+							</h1>
+						</MUILink>
+						<Fragment>
+							<div className={classes.iconTray}>
+								<MyButton toolTip='Login' url='/'>
+									<HomeIcon className={classes.individualIcon} />
+								</MyButton>
+							</div>
+						</Fragment>
+					</Toolbar>
+				</div>
+			</AppBar>
+		);
 	}
 }
 

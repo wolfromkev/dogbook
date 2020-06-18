@@ -70,7 +70,7 @@ class Messanger extends Component {
 
 	render() {
 		dayjs.extend(relativeTime);
-		const { messages, dogs, credentials, authenticated } = this.props;
+		const { messages, dogs, credentials } = this.props;
 		let chatList, messageRender;
 
 		if (credentials.msgGroup && dogs.length > 0 && messages.length > 0) {
@@ -92,7 +92,11 @@ class Messanger extends Component {
 						>
 							{' '}
 							<div className={classes.avatarChatList}>
-								<img className={classes.userAvatar} src={dog.imageUrl} />
+								<img
+									className={classes.userAvatar}
+									src={dog.imageUrl}
+									alt='dogPhoto'
+								/>
 							</div>
 							<div className={classes.infoBox}>
 								<div className={classes.userInfo}> @{dog.handle}</div>
@@ -122,7 +126,11 @@ class Messanger extends Component {
 								>
 									{' '}
 									<div className={classes.avatarChatList}>
-										<img className={classes.userAvatar} src={dog.imageUrl} />
+										<img
+											className={classes.userAvatar}
+											src={dog.imageUrl}
+											alt='dogPhoto'
+										/>
 									</div>
 									<div className={classes.infoBox}>
 										<div className={classes.userInfo}> @{dog.handle}</div>
@@ -151,7 +159,11 @@ class Messanger extends Component {
 					return (
 						<div className={classes.fromMessageBox}>
 							<div className={classes.messageAvatarBox}>
-								<img className={classes.messageAvatar} src={dog.imageUrl} />
+								<img
+									className={classes.messageAvatar}
+									src={dog.imageUrl}
+									alt='dogPhoto'
+								/>
 							</div>
 							<div className={classes.fromMsgContentTime}>
 								<div className={classes.fromMessage}>

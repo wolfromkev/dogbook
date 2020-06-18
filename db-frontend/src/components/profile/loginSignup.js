@@ -35,7 +35,6 @@ const style = {
 		paddingTop: '15rem',
 		opacity: '1',
 		color: 'black',
-		zIndex: '5',
 	},
 	LSDiv: {
 		position: 'relative',

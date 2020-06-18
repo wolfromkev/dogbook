@@ -12,7 +12,6 @@ import store from './redux/store';
 
 //Components
 import Navbar from './components/layout/Navbar';
-import AuthRoute from './utility/AuthRoute';
 import Home from './pages/home';
 import User from './pages/user';
 import LandingPage from './pages/landingPage';

@@ -70,7 +70,6 @@ class user extends Component {
 		const { barks, loading } = this.props.data;
 		const { classes } = this.props;
 		const {
-			authenticated,
 			credentials: { handle },
 		} = this.props.user;
 

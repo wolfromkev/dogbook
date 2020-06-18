@@ -9,7 +9,6 @@ import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import MUILink from '@material-ui/core/Link';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
@@ -56,7 +55,6 @@ class Following extends Component {
 	render() {
 		const { classes } = this.props;
 		const { dogs } = this.props.data;
-		const { imageUrl } = this.props.data.dogs;
 		const { following } = this.props.user;
 
 		let followingArray = dogs.filter((dog) => following.includes(dog.handle));
