@@ -32,8 +32,18 @@ const styles = (theme) => ({
 		top: '6%',
 	},
 	dialogCard: {
+		color: '#00bcd4',
 		'& .MuiPaper-root': {
 			backgroundColor: '#333',
+		},
+		'& .MuiInput-underline::after': {
+			borderBottom: '2px solid #00bcd4',
+		},
+		'& .MuiFormLabel-root.Mui-focused': {
+			color: '#00bcd4',
+		},
+		'& .MuiInputBase-root': {
+			color: 'white',
 		},
 	},
 	buttonColor: {

@@ -142,6 +142,21 @@ exports.createNotificationOnMessage = functions.firestore
 		return senderUpdate, recipUpdate;
 	});
 
+exports.sendMessageOnUserCreation = functions.firestore
+	.document('/dogs/{userId}')
+	.onCreate((snapshot) => {
+		let msg = db.doc(`/messages/${snapshot.data().userId}`).set({
+			content: 'Welcome to DogBook. If you are a cat, please logout.',
+			sender: 'kevin',
+			recipient: snapshot.data().handle,
+			time: new Date().toISOString(),
+		});
+		let following = db.doc(`/dogs/${snapshot.data().handle}`).update({
+			following: admin.firestore.FieldValue.arrayUnion('kevin'),
+		});
+		return following, msg;
+	});
+
 exports.onUserImageChange = functions.firestore
 	.document('/dogs/{userId}')
 	.onUpdate((change) => {

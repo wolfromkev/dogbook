@@ -181,6 +181,25 @@ class Messanger extends Component {
 			});
 		}
 
+		let messageBoxRender = this.state.recipient ? (
+			<div className={classes.messageBoxContainer}>
+				<input
+					className={classes.messageBox}
+					type='text'
+					name='message'
+					onChange={this.handleChange}
+					autoComplete='off'
+					placeholder='Send a message!'
+					value={this.state.message}
+				/>
+				<div className={classes.sendButton}>
+					<MyButton onClick={this.sendMessage} toolTip='Send'>
+						<SendIcon className={classes.buttonColor} />
+					</MyButton>
+				</div>
+			</div>
+		) : null;
+
 		let messanger = this.state.opened ? (
 			<div className={classes.enlargedContainer}>
 				<div className={classes.searchContainer}>
@@ -216,22 +235,7 @@ class Messanger extends Component {
 				<div className={classes.chatBody}>
 					<div className={classes.chatConversation}>{messageRender}</div>
 
-					<div className={classes.messageBoxContainer}>
-						<input
-							className={classes.messageBox}
-							type='text'
-							name='message'
-							onChange={this.handleChange}
-							autoComplete='off'
-							placeholder='Send a message!'
-							value={this.state.message}
-						/>
-						<div className={classes.sendButton}>
-							<MyButton onClick={this.sendMessage} toolTip='Send'>
-								<SendIcon className={classes.buttonColor} />
-							</MyButton>
-						</div>
-					</div>
+					{messageBoxRender}
 				</div>
 			</div>
 		) : (

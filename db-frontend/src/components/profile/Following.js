@@ -74,7 +74,7 @@ class Following extends Component {
 										className={classes.followedDog}
 									>
 										<ListItemAvatar>
-											<Avatar alt='profile Image' src={imageUrl} />
+											<Avatar alt='profile Image' src={dog.imageUrl} />
 										</ListItemAvatar>
 										<p className={classes.userHandle}> @{dog.handle}</p>
 									</ListItem>
