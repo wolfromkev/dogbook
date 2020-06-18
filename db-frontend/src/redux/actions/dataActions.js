@@ -12,6 +12,8 @@ import {
 	STOP_LOADING_UI,
 	SUBMIT_COMMENT,
 	GET_ALL_USERS,
+	GET_MESSAGES,
+	NEW_MESSAGE,
 } from '../types';
 import axios from 'axios';
 
@@ -160,4 +162,23 @@ export const getAllUsers = () => (dispatch) => {
 				payload: [],
 			});
 		});
+};
+
+export const getMessages = () => (dispatch) => {
+	axios
+		.get('/getmessages')
+		.then((res) => {
+			dispatch({
+				type: GET_MESSAGES,
+				payload: res.data,
+			});
+		})
+		.catch((err) => console.log(err));
+};
+
+export const addNewMessage = (msg) => (dispatch) => {
+	dispatch({
+		type: NEW_MESSAGE,
+		payload: msg,
+	});
 };

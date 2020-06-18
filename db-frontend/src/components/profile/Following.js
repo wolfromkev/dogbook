@@ -24,9 +24,12 @@ const styles = {
 		overflowX: 'hidden',
 		maxHeight: 300,
 		color: 'white',
+		'& .MuiTypography-colorPrimary': {
+			color: '#00bcd4',
+		},
 	},
 	userHandle: {
-		color: 'white',
+		color: '#00bcd4',
 	},
 	Divider: {
 		backgroundColor: 'white',
@@ -38,11 +41,10 @@ const styles = {
 	},
 
 	Typography: {
-		paddingBottom: 10,
-		paddingTop: 10,
+		color: '#00bcd4',
 	},
 	followedDog: {
-		marginBottom: 10,
+		textDecoration: 'none',
 	},
 };
 
@@ -61,16 +63,11 @@ class Following extends Component {
 
 		let followingToggle =
 			following.length !== 0 ? (
-				<Fragment>
+				<Fragment className={classes.followedDog}>
 					{followingArray.map((dog) => {
 						return (
 							<Fragment key={uniqid()}>
-								<MUILink
-									component={Link}
-									to={`/dogs/${dog.handle}`}
-									color='primary'
-									variant='h5'
-								>
+								<MUILink component={Link} to={`/dogs/${dog.handle}`}>
 									<ListItem
 										key={dog.userHandle}
 										button
@@ -79,11 +76,7 @@ class Following extends Component {
 										<ListItemAvatar>
 											<Avatar alt='profile Image' src={imageUrl} />
 										</ListItemAvatar>
-										<ListItemText
-											id={dog.handle}
-											primary={`@${dog.handle}`}
-											className={classes.userHandle}
-										/>
+										<p className={classes.userHandle}> @{dog.handle}</p>
 									</ListItem>
 								</MUILink>
 

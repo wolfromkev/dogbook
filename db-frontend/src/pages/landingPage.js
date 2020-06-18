@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBarks } from '../redux/actions/dataActions';
 import { withStyles } from '@material-ui/core';
+import { history } from 'react-router-dom';
 import LoginSignup from '../components/profile/loginSignup';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -32,6 +33,7 @@ const styles = {
 	},
 	titleBar: {
 		textAlign: 'center',
+		color: '#00bcd4',
 	},
 	body: {
 		fontSize: '200%',
@@ -39,10 +41,14 @@ const styles = {
 
 	cardTitle: {
 		fontSize: '150%',
+		color: '#00bcd4',
 	},
 
 	maindiv: {
 		textAlign: 'center',
+	},
+	textColor: {
+		color: '#00bcd4',
 	},
 };
 
@@ -50,6 +56,12 @@ class Home extends Component {
 	componentDidMount() {
 		this.props.getBarks();
 	}
+	componentDidUpdate(prevProps) {
+		if (prevProps.authenticated !== this.props.authenticated) {
+			this.props.history.push('/home');
+		}
+	}
+
 	render() {
 		const { barks } = this.props.data;
 		const { classes } = this.props;
@@ -58,7 +70,7 @@ class Home extends Component {
 			<div className={classes.maindiv}>
 				<LoginSignup history={this.props.history} />
 
-				<h1> See what the dogs are barking! </h1>
+				<h1 className={classes.textColor}> See what the dogs are barking! </h1>
 				<div className={classes.root}>
 					<GridList cellHeight={150} spacing={16} className={classes.gridList}>
 						{barks.map((bark) => (
@@ -99,6 +111,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
 	data: state.data,
+	authenticated: state.user.authenticated,
 });
 
 export default connect(mapStateToProps, { getBarks })(withStyles(styles)(Home));

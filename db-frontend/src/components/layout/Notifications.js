@@ -3,7 +3,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
 //MUI
+import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,6 +20,34 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../redux/actions/userActions';
 
+const styles = {
+	individualIcon: {
+		color: '#00bcd4 !important',
+	},
+
+	Menu: {
+		color: 'white',
+		'& .MuiPaper-root': {
+			backgroundColor: '#333',
+		},
+		'& .MuiTypography-body1': {
+			color: 'white',
+		},
+	},
+
+	iconColorNotRead: {
+		color: '#00bcd4',
+	},
+	iconColorRead: {
+		color: '#008091',
+	},
+	notificationTypography: {
+		color: 'white',
+		'& .MuiTypography-root': {
+			color: '#white',
+		},
+	},
+};
 class Notifications extends Component {
 	state = {
 		anchorElement: null,
@@ -39,25 +69,25 @@ class Notifications extends Component {
 	};
 
 	render() {
+		const { classes } = this.props;
 		dayjs.extend(relativeTime);
 		const notifications = this.props.notifications;
 		const anchorElement = this.state.anchorElement;
 		let notificationIcon;
-		if (Notifications && notifications.length > 0) {
+		if (notifications && notifications.length > 0) {
 			notifications.filter((not) => not.read === false).length > 0
 				? (notificationIcon = (
 						<Badge
 							badgeContent={
 								notifications.filter((not) => not.read === false).length
 							}
-							color='secondary'
 						>
-							<NotificationsIcon color='secondary' />
+							<NotificationsIcon />
 						</Badge>
 				  ))
-				: (notificationIcon = <NotificationsIcon color='secondary' />);
+				: (notificationIcon = <NotificationsIcon />);
 		} else {
-			notificationIcon = <NotificationsIcon color='secondary' />;
+			notificationIcon = <NotificationsIcon />;
 		}
 
 		let notificationsMarkup =
@@ -65,12 +95,14 @@ class Notifications extends Component {
 				notifications.map((note) => {
 					const verb = note.type === 'like' ? 'liked' : 'commented on';
 					const time = dayjs(note.createdAt).fromNow();
-					const iconColor = note.read ? 'notificationRead' : 'primary';
+					const iconColor = note.read
+						? classes.iconColorRead
+						: classes.iconColorNotRead;
 					const icon =
 						note.type === 'like' ? (
-							<FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
+							<FavoriteIcon className={iconColor} style={{ marginRight: 10 }} />
 						) : (
-							<ChatIcon color={iconColor} style={{ marginRight: 10 }} />
+							<ChatIcon className={iconColor} style={{ marginRight: 10 }} />
 						);
 					return (
 						<MenuItem key={note.createdAt} onClick={this.handleClose}>
@@ -80,6 +112,7 @@ class Notifications extends Component {
 								color='default'
 								variant='body1'
 								to={`/dogs/${note.recipient}/bark/${note.barkId}`}
+								className={classes.notificationTypography}
 							>
 								{note.sender} {verb} your bark at {time}
 							</Typography>
@@ -97,15 +130,18 @@ class Notifications extends Component {
 						aria-owns={anchorElement ? 'simple-menu' : undefined}
 						aria-haspopup='true'
 						onClick={this.handleOpen}
+						className={classes.individualIcon}
 					>
 						{notificationIcon}
 					</IconButton>
 				</Tooltip>
+
 				<Menu
 					anchorEl={anchorElement}
 					open={Boolean(anchorElement)}
 					onClose={this.handleClose}
 					onEntered={this.onMenuOpen}
+					className={classes.Menu}
 				>
 					{notificationsMarkup}
 				</Menu>
@@ -124,5 +160,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { markNotificationsRead })(
-	Notifications
+	withStyles(styles)(Notifications)
 );

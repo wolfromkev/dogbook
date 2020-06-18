@@ -62,10 +62,9 @@ const styles = {
 			margin: '20px 10px',
 		},
 	},
-	followButton2: {
-		bottom: '10%',
-		left: '50%',
-		position: 'absolute',
+
+	iconColor: {
+		color: '#00bcd4',
 	},
 };
 
@@ -103,21 +102,21 @@ const StaticProfile = (props) => {
 					<hr />
 					{location && (
 						<Fragment>
-							<LocationOn color='primary' />
+							<LocationOn className={classes.iconColor} />
 							<span>{location}</span>
 							<hr />
 						</Fragment>
 					)}
 					{website && (
 						<Fragment>
-							<LinkIcon color='primary'></LinkIcon>
+							<LinkIcon className={classes.iconColor}></LinkIcon>
 							<a href={website} target='_blank' rel='noopener noreferrer'>
 								{website}
 							</a>
 							<hr />
 						</Fragment>
 					)}
-					<CalendarToday color='primary' />{' '}
+					<CalendarToday className={classes.iconColor} />{' '}
 					<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
 					<div>{followButton}</div>
 				</div>

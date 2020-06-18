@@ -17,6 +17,7 @@ const style = {
 	button: {
 		margin: '10px auto 10px auto',
 		position: 'relative',
+		backgroundColor: '#00bcd4',
 	},
 	errorMsg: {
 		color: 'red',
@@ -27,16 +28,18 @@ const style = {
 		position: 'absolute',
 	},
 	buttonSL: {
-		color: '#200bd2',
+		color: '#00bcd4',
 	},
 	formContainer: {
 		zIndex: 100,
 		paddingTop: '15rem',
 		opacity: '1',
+		color: 'black',
+		zIndex: '5',
 	},
 	LSDiv: {
 		position: 'relative',
-		backgroundColor: 'white',
+		backgroundColor: '#333',
 		height: '60rem',
 		width: '100%',
 		objectFit: 'cover',
@@ -53,8 +56,18 @@ const style = {
 		objectFit: 'cover',
 		pointerEvents: 'none',
 	},
+	textField: {
+		'& .MuiInput-underline::after': {
+			borderBottom: '2px solid #00bcd4',
+		},
+		'& .MuiFormLabel-root.Mui-focused': {
+			color: '#00bcd4',
+		},
+	},
+	Title: {
+		color: 'white',
+	},
 };
-
 class LoginSignup extends Component {
 	constructor() {
 		super();

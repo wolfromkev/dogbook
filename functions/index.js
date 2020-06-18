@@ -1,7 +1,7 @@
 const functions = require('firebase-functions');
 const app = require('express')();
 const FBAuth = require('./utility/firebaseAuth');
-const { db } = require('./utility/admin');
+const { db, admin } = require('./utility/admin');
 
 const cors = require('cors');
 app.use(cors());
@@ -17,6 +17,9 @@ const {
 	followUser,
 	unfollowUser,
 	getFollowedDogs,
+	sendMessage,
+	getMessages,
+	markMessageRead,
 } = require('./handlers/dogs');
 const {
 	getAllBarks,
@@ -47,8 +50,12 @@ app.get('/dog', FBAuth, getAuthenticatedUser);
 app.get('/dog/:handle', getUserDetails);
 app.get('/dog/:handle/follow', FBAuth, followUser);
 app.get('/dog/:handle/unfollow', FBAuth, unfollowUser);
-
 app.post('/notifications', markNotificationsRead);
+
+//Messaging
+app.post('/sendmessage/:handle', FBAuth, sendMessage);
+app.get('/getmessages', FBAuth, getMessages);
+app.post('/readmessage', markMessageRead);
 
 exports.api = functions.https.onRequest(app);
 
@@ -99,7 +106,10 @@ exports.createNotificationOnComment = functions.firestore
 			.doc(`/barks/${snapshot.data().barkId}`)
 			.get()
 			.then((doc) => {
-				if (doc.exists !== snapshot.data().userHandle) {
+				if (
+					doc.exists &&
+					doc.data().userHandle !== snapshot.data().userHandle
+				) {
 					return db.doc(`/notifications/${snapshot.id}`).set({
 						createdAt: new Date().toISOString(),
 						recipient: doc.data().userHandle,
@@ -116,13 +126,26 @@ exports.createNotificationOnComment = functions.firestore
 			});
 	});
 
+exports.createNotificationOnMessage = functions.firestore
+	.document('/messages/{id}')
+	.onCreate((snapshot) => {
+		let senderUpdate = db.doc(`/dogs/${snapshot.data().sender}`).update({
+			messages: admin.firestore.FieldValue.arrayUnion(snapshot.id),
+			msgGroup: admin.firestore.FieldValue.arrayUnion(
+				snapshot.data().recipient
+			),
+		});
+		let recipUpdate = db.doc(`/dogs/${snapshot.data().recipient}`).update({
+			messages: admin.firestore.FieldValue.arrayUnion(snapshot.id),
+			msgGroup: admin.firestore.FieldValue.arrayUnion(snapshot.data().sender),
+		});
+		return senderUpdate, recipUpdate;
+	});
+
 exports.onUserImageChange = functions.firestore
 	.document('/dogs/{userId}')
 	.onUpdate((change) => {
-		console.log(change.before.data());
-		console.log(change.after.data());
 		if (change.before.data().imageUrl !== change.after.data().imageUrl) {
-			console.log('image changed');
 			const batch = db.batch();
 			return db
 				.collection('barks')

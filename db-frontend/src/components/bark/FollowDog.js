@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MyButton from '../../utility/MyButton';
-
-//MUI
 import withStyles from '@material-ui/core/styles/withStyles';
+//MUI
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 
@@ -11,10 +10,9 @@ import { connect } from 'react-redux';
 import { followUser, unfollowUser } from '../../redux/actions/userActions';
 
 const styles = {
-	followButton: {
-		bottom: '10%',
-		left: '94%',
-		position: 'absolute',
+	textColoring: {
+		color: '#00bcd4',
+		marginBottom: '0.65rem',
 	},
 };
 
@@ -41,20 +39,16 @@ export class FollowDog extends Component {
 	render() {
 		const { classes } = this.props;
 		const followButton = this.followedDog() ? (
-			<MyButton
-				toolTip='Unfollow'
-				onClick={this.handleUnfollow}
-				btnClassName={classes.followButton}
-			>
-				<CheckOutlinedIcon color='primary'> </CheckOutlinedIcon>
+			<MyButton toolTip='Unfollow' onClick={this.handleUnfollow}>
+				<CheckOutlinedIcon className={classes.textColoring}>
+					{' '}
+				</CheckOutlinedIcon>
 			</MyButton>
 		) : (
-			<MyButton
-				toolTip='Follow'
-				onClick={this.handleFollow}
-				btnClassName={classes.followButton}
-			>
-				<PersonAddOutlinedIcon color='primary'> </PersonAddOutlinedIcon>
+			<MyButton toolTip='Follow' onClick={this.handleFollow}>
+				<PersonAddOutlinedIcon className={classes.textColoring}>
+					{' '}
+				</PersonAddOutlinedIcon>
 			</MyButton>
 		);
 

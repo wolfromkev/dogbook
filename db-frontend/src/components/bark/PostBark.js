@@ -31,6 +31,14 @@ const styles = (theme) => ({
 		left: '91%',
 		top: '6%',
 	},
+	dialogCard: {
+		'& .MuiPaper-root': {
+			backgroundColor: '#333',
+		},
+	},
+	buttonColor: {
+		color: '#00bcd4',
+	},
 });
 
 class PostBark extends Component {
@@ -75,56 +83,60 @@ class PostBark extends Component {
 		return (
 			<Fragment>
 				<MyButton onClick={this.handleOpen} toolTip='Post a bark!'>
-					<AddIcon color='secondary' />
+					<AddIcon className={classes.buttonColor} />
 				</MyButton>
-				<Dialog
-					open={this.state.open}
-					onClose={this.handleClose}
-					fullWidth
-					maxWidth='sm'
-				>
-					<MyButton
-						toolTip='Close'
-						onClick={this.handleClose}
-						toolClassName={classes.closeButton}
+				<div className={classes.dialogCard}>
+					<Dialog
+						open={this.state.open}
+						onClose={this.handleClose}
+						fullWidth
+						maxWidth='sm'
+						className={classes.dialogCard}
 					>
-						<CloseIcon></CloseIcon>
-					</MyButton>
-					<DialogTitle>Post a new Bark!</DialogTitle>
-					<DialogContent>
-						<form onSubmit={this.handleSubmit}>
-							<TextField
-								name='body'
-								type='text'
-								label='Post a bark!'
-								multiline
-								rows='3'
-								placeholder='Bark a bark'
-								error={errors.body ? true : false}
-								helperText={errors.body}
-								className={classes.TextField}
-								onChange={this.handleChange}
-								fullWidth
-							/>
-							<Button
-								type='submit'
-								variant='contained'
-								color='primary'
-								className={classes.submitButton}
-								disabled={loading}
-							>
-								{' '}
-								Submit
-								{loading && (
-									<CircularProgress
-										size={30}
-										className={classes.progressSpinner}
-									></CircularProgress>
-								)}
-							</Button>
-						</form>
-					</DialogContent>
-				</Dialog>
+						<MyButton
+							toolTip='Close'
+							onClick={this.handleClose}
+							toolClassName={classes.closeButton}
+						>
+							<CloseIcon></CloseIcon>
+						</MyButton>
+						<DialogTitle className={classes.dialogCard}>
+							Post a new Bark!
+						</DialogTitle>
+						<DialogContent className={classes.dialogCard}>
+							<form onSubmit={this.handleSubmit}>
+								<TextField
+									name='body'
+									type='text'
+									label='Post a bark!'
+									multiline
+									rows='3'
+									placeholder='Bark a bark'
+									error={errors.body ? true : false}
+									helperText={errors.body}
+									className={classes.TextField}
+									onChange={this.handleChange}
+									fullWidth
+								/>
+								<Button
+									type='submit'
+									variant='contained'
+									className={classes.submitButton}
+									disabled={loading}
+								>
+									{' '}
+									Submit
+									{loading && (
+										<CircularProgress
+											size={30}
+											className={classes.progressSpinner}
+										></CircularProgress>
+									)}
+								</Button>
+							</form>
+						</DialogContent>
+					</Dialog>
+				</div>
 			</Fragment>
 		);
 	}

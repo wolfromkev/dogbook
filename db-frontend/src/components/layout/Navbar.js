@@ -3,7 +3,7 @@ import classes from './Navbar.module.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyButton from '../../utility/MyButton';
-import { Link } from 'react-router-dom';
+import Link from 'react-router-dom/Link';
 import { logoutUser } from '../../redux/actions/userActions';
 import { getAllUsers } from '../../redux/actions/dataActions';
 import PostBark from '../bark/PostBark';
@@ -32,7 +32,6 @@ export class Navbar extends Component {
 	};
 
 	handleModalOpen = () => {
-		console.log(this.state.search);
 		this.setState({ popperOpened: true });
 	};
 
@@ -52,22 +51,21 @@ export class Navbar extends Component {
 
 		let visibilityToggle = dogs.length === 0 ? 'hidden' : 'visible';
 
-		return (
+		return authenticated ? (
 			<AppBar className={classes.navBar}>
-				<Toolbar>
-					<MUILink
-						component={Link}
-						to={`/home`}
-						color='primary'
-						underline='none'
-						className={classes.dogbookLogoLink}
-					>
-						<h1 className={classes.dogBookLogo}>
-							DogBook <PetsIcon />
-						</h1>
-					</MUILink>
-
-					{authenticated ? (
+				<div className={classes.navBarColorFix}>
+					<Toolbar>
+						<MUILink
+							component={Link}
+							to={`/home`}
+							color='primary'
+							underline='none'
+							className={classes.dogbookLogoLink}
+						>
+							<h1 className={classes.dogBookLogo}>
+								DogBook <PetsIcon />
+							</h1>
+						</MUILink>
 						<Fragment>
 							<div
 								className={classes.search}
@@ -102,24 +100,18 @@ export class Navbar extends Component {
 							<div className={classes.iconTray}>
 								<PostBark />
 								<MyButton toolTip='Home' url='/home'>
-									<HomeIcon color='secondary' />
+									<HomeIcon className={classes.individualIcon} />
 								</MyButton>
 								<Notifications />
 								<MyButton toolTip='Logout' onClick={this.handleLogout}>
-									<KeyboardReturn color='secondary' />
+									<KeyboardReturn className={classes.individualIcon} />
 								</MyButton>
 							</div>
 						</Fragment>
-					) : (
-						<Fragment>
-							<MyButton toolTip='Home' url='/'>
-								<HomeIcon color='secondary' />
-							</MyButton>
-						</Fragment>
-					)}
-				</Toolbar>
+					</Toolbar>
+				</div>
 			</AppBar>
-		);
+		) : null;
 	}
 }
 

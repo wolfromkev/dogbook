@@ -10,10 +10,8 @@ import LikeButton from '../layout/LikeButton';
 //MUI
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Link from 'react-router-dom/Link';
-//Icons
 
 //Redux
 import { connect } from 'react-redux';
@@ -25,8 +23,17 @@ const style = {
 		position: 'relative',
 		backgroundColor: 'rgb(28, 30, 31)',
 	},
+
+	imageContainer: {
+		display: 'flex',
+		alignItems: 'center',
+	},
+
 	image: {
 		minWidth: 200,
+		maxHeight: 200,
+		objectFit: 'cover',
+		borderRadius: '50%',
 	},
 	content: {
 		padding: 15,
@@ -38,18 +45,26 @@ const style = {
 		top: '80%',
 		padding: 0,
 		margin: 0,
+		color: '#00bcd4',
 	},
 	hr: {
 		visibility: 'hidden',
 	},
 	bodyContainer: {
-		maxWidth: '100%',
 		wordWrap: 'break-word',
+		width: '100%',
 	},
 	followButton: {
-		bottom: '10%',
-		left: '94%',
-		position: 'absolute',
+		paddingBottom: '2rem',
+		display: 'flex',
+	},
+
+	iconTray: {
+		display: 'flex',
+	},
+
+	handlerFollowSpan: {
+		width: '100%',
 	},
 };
 
@@ -74,49 +89,56 @@ class Bark extends Component {
 		} = this.props;
 
 		const deleteButton =
-			authenticated && userHandle === handle ? (
-				<DeleteBark barkId={barkId}></DeleteBark>
-			) : null;
+			userHandle === handle ? <DeleteBark barkId={barkId}></DeleteBark> : null;
 
 		const followButton =
-			authenticated && userHandle !== handle ? (
+			userHandle !== handle ? (
 				<FollowDog userHandle={userHandle}> </FollowDog>
 			) : null;
 
 		return (
 			<Card className={classes.card}>
-				<CardMedia
-					image={userImage}
-					title='profile image'
-					className={classes.image}
-				/>
+				<div className={classes.imageContainer}>
+					<img src={userImage} className={classes.image}></img>
+				</div>
 
 				<CardContent className={classes.content}>
-					<Typography
-						variant='h5'
-						component={Link}
-						to={`/dogs/${userHandle}`}
-						color='primary'
-						className={classes.cardTitle}
-					>
-						@{userHandle}
-					</Typography>
-					{deleteButton}
-					<Typography variant='body1' color='primary'>
+					<span className={classes.handlerFollowSpan}>
+						<Typography
+							variant='h5'
+							component={Link}
+							to={`/dogs/${userHandle}`}
+							className={classes.cardTitle}
+						>
+							@{userHandle}
+						</Typography>
+
+						{followButton}
+
+						{deleteButton}
+					</span>
+
+					<Typography variant='body1' className={classes.textColoring}>
 						{dayjs(createdAt).fromNow()}
 					</Typography>
 					<hr className={classes.hr} />
 					<div className={classes.bodyContainer}>
-						<Typography variant='h5'> {body}</Typography>
+						<Typography variant='h5' className={classes.bodyText}>
+							{' '}
+							{body}
+						</Typography>
 					</div>
-
 					<hr className={classes.hr} />
-					{likeCount}
-					<LikeButton barkId={barkId} />
-
-					<span>{commentCount}</span>
-					<BarkDialog barkId={barkId} userHandle={userHandle}></BarkDialog>
-					<span className={classes.followButton}>{followButton}</span>
+					<span className={classes.iconTray}>
+						<span>
+							{likeCount}
+							<LikeButton barkId={barkId} />
+						</span>
+						<span>
+							{commentCount}
+							<BarkDialog barkId={barkId} userHandle={userHandle} />
+						</span>
+					</span>
 				</CardContent>
 			</Card>
 		);

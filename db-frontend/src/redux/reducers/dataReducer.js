@@ -8,6 +8,8 @@ import {
 	SET_BARK,
 	SUBMIT_COMMENT,
 	GET_ALL_USERS,
+	GET_MESSAGES,
+	NEW_MESSAGE,
 } from '../types';
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
 	bark: {},
 	loading: false,
 	dogs: [],
+	messages: [],
 };
 
 export default function (state = initialState, action) {
@@ -73,6 +76,27 @@ export default function (state = initialState, action) {
 				...state,
 				loading: false,
 				dogs: action.payload,
+			};
+		case GET_MESSAGES:
+			let array = action.payload;
+			array.sort(function (a, b) {
+				return new Date(b.time) - new Date(a.time);
+			});
+
+			return {
+				...state,
+				messages: array,
+			};
+
+		case NEW_MESSAGE:
+			let array2 = state.messages;
+			array2.push(action.payload);
+			array2.sort(function (a, b) {
+				return new Date(a.time) - new Date(b.time);
+			});
+			return {
+				...state,
+				messages: array2,
 			};
 
 		default:

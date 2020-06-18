@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MyButton from '../../utility/MyButton';
 import PropTypes from 'prop-types';
-
+import withStyles from '@material-ui/core/styles/withStyles';
 //Icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
@@ -9,6 +9,11 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { connect } from 'react-redux';
 import { likeBark, unlikeBark } from '../../redux/actions/dataActions';
 
+const styles = {
+	iconColor: {
+		color: '#00bcd4',
+	},
+};
 export class likeButton extends Component {
 	likedBark = () => {
 		if (
@@ -26,18 +31,19 @@ export class likeButton extends Component {
 	};
 
 	render() {
+		const { classes } = this.props;
 		const { authenticated } = this.props.user;
 		const likeButton = !authenticated ? (
 			<MyButton toolTip='Login to like a post!'>
-				<FavoriteBorder color='primary'></FavoriteBorder>
+				<FavoriteBorder className={classes.iconColor}></FavoriteBorder>
 			</MyButton>
 		) : this.likedBark() ? (
 			<MyButton toolTip='Unlike' onClick={this.unlikeBark}>
-				<FavoriteIcon color='primary'></FavoriteIcon>
+				<FavoriteIcon className={classes.iconColor}></FavoriteIcon>
 			</MyButton>
 		) : (
 			<MyButton toolTip='Like' onClick={this.likeBark}>
-				<FavoriteBorder color='primary'></FavoriteBorder>
+				<FavoriteBorder className={classes.iconColor}></FavoriteBorder>
 			</MyButton>
 		);
 		return likeButton;
@@ -60,4 +66,7 @@ const mapDispatchToProps = {
 	unlikeBark,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(likeButton);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withStyles(styles)(likeButton));

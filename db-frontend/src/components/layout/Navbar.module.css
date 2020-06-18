@@ -2,12 +2,12 @@
 	flex-direction: row;
 }
 
+.navBarColorFix {
+	background-color: rgb(28, 30, 31);
+}
+
 .navBar {
-	background: linear-gradient(
-		45deg,
-		rgba(34, 160, 195, 1) 0%,
-		rgba(32, 11, 210, 1) 100%
-	);
+	background: rgb(28, 30, 31);
 	position: relative;
 	justify-content: center;
 	width: 100%;
@@ -17,18 +17,18 @@
 	margin-top: 0;
 	margin-bottom: 0;
 	cursor: pointer;
-	color: white;
+	color: #00bcd4;
 }
 
 .search {
 	border-radius: 3px;
-	background-color: white;
+	background-color: rgb(59, 59, 59);
 	flex: 1;
 	display: flex;
 	height: auto;
 }
 .search:hover {
-	background-color: white;
+	background-color: rgb(82, 82, 82);
 }
 
 .searchIcon {
@@ -67,9 +67,11 @@
 }
 
 .dogbookLogoLink {
-	color: white;
 	flex: 1;
 	margin-top: 0;
 	margin-bottom: 0;
 	cursor: pointer;
+}
+.individualIcon {
+	color: #00bcd4 !important;
 }

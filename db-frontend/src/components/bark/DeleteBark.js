@@ -21,6 +21,17 @@ const styles = {
 	},
 	dialogBox: {
 		backgroundColor: 'rgba(0,0,0,0.3)',
+
+		'& .MuiPaper-root': {
+			backgroundColor: '#333',
+		},
+	},
+
+	iconColor: {
+		color: '#00bcd4',
+	},
+	title: {
+		color: 'white',
 	},
 };
 
@@ -48,7 +59,7 @@ class DeleteBark extends Component {
 					onClick={this.handleOpen}
 					btnClassName={classes.deleteButton}
 				>
-					<DeleteOutline color='primary'></DeleteOutline>
+					<DeleteOutline className={classes.iconColor}></DeleteOutline>
 				</MyButton>
 
 				<Dialog
@@ -58,14 +69,14 @@ class DeleteBark extends Component {
 					maxWidth='sm'
 					className={classes.dialogBox}
 				>
-					<DialogTitle color='primary'>
+					<DialogTitle className={classes.title}>
 						Are you sure you want to delete this?
 					</DialogTitle>
 					<DialogActions>
-						<Button onClick={this.handleClose} color='primary'>
+						<Button onClick={this.handleClose} className={classes.iconColor}>
 							Cancel{' '}
 						</Button>
-						<Button onClick={this.deleteBark} color='primary'>
+						<Button onClick={this.deleteBark} className={classes.iconColor}>
 							Delete{' '}
 						</Button>
 					</DialogActions>

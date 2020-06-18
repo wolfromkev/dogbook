@@ -55,6 +55,9 @@ const styles = {
 		textAlign: 'center',
 		color: 'white',
 	},
+	iconColor: {
+		color: '#00bcd4',
+	},
 };
 
 const ProfileSkeleton = (props) => {
@@ -75,12 +78,18 @@ const ProfileSkeleton = (props) => {
 					<hr />
 					<span className={classes.handle}> Loading dog stuff...</span>
 					<hr />
-					<LocationOn color='primary' /> <span>Location...</span>
+					<LocationOn className={classes.iconColor} /> <span>Location...</span>
 					<hr />
-					<LinkIcon color='primary'> www.dogbook.com...</LinkIcon>{' '}
+					<LinkIcon className={classes.iconColor}>
+						{' '}
+						www.dogbook.com...
+					</LinkIcon>{' '}
 					<span>www.dogbook.com</span>
 					<hr />
-					<CalendarToday color='primary'> Today... </CalendarToday>{' '}
+					<CalendarToday className={classes.iconColor}>
+						{' '}
+						Today...{' '}
+					</CalendarToday>{' '}
 					<span>Today... </span>
 				</div>
 			</div>

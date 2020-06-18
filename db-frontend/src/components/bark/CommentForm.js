@@ -8,7 +8,26 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
-const styles = {};
+const styles = {
+	TextColoring: {
+		color: '#00bcd4',
+	},
+	form: {
+		'& .MuiFormLabel-root': {
+			color: 'black',
+		},
+
+		'& .MuiInput-underline::after': {
+			borderBottom: '2px solid #00bcd4',
+		},
+		'& .MuiInputBase-input': {
+			color: '#00bcd4',
+		},
+	},
+	button: {
+		backgroundColor: '#00bcd4',
+	},
+};
 
 class CommentForm extends Component {
 	state = {
@@ -41,7 +60,7 @@ class CommentForm extends Component {
 
 		const commentFormMarkup = authenticated ? (
 			<Grid item sm={12} style={{ textAlign: 'right' }}>
-				<form onSubmit={this.handleSubmit}>
+				<form onSubmit={this.handleSubmit} className={classes.form}>
 					<TextField
 						name='body'
 						type='text'
@@ -50,11 +69,11 @@ class CommentForm extends Component {
 						helperText={errors.comment}
 						value={this.state.body}
 						onChange={this.handleChange}
-						className={classes.TextField}
+						className={classes.TextColoring}
 						fullWidth
 					></TextField>
 
-					<Button type='submit' variant='contained' color='primary'>
+					<Button type='submit' variant='contained' className={classes.button}>
 						Submit
 					</Button>
 				</form>

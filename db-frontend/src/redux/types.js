@@ -6,6 +6,7 @@ export const LOADING_USER = 'LOADING_USER';
 export const MARK_NOTIFICATIONS_READ = 'MARK_NOTIFICATIONS_READ';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+export const MESSAGE_SENT = 'MESSAGE_SENT';
 //UI REDUCER TYPES
 export const SET_ERRORS = 'SET_ERRORS';
 export const LOADING_UI = 'LOADING_UI';
@@ -21,3 +22,5 @@ export const DELETE_BARK = 'DELETE_BARK';
 export const POST_BARK = 'POST_BARK';
 export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const NEW_MESSAGE = 'NEW_MESSAGE';

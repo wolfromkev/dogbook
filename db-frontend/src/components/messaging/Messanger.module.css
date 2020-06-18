@@ -7,7 +7,7 @@
 
 .collapsedMessageBox {
 	display: flex;
-	background-color: #333;
+	background-color: rgb(28, 30, 31);
 	border-radius: 2px;
 	height: 2rem;
 	cursor: pointer;
@@ -79,14 +79,20 @@
 	background-color: rgb(17, 17, 17);
 }
 
+.buttoncolor {
+	background-color: #00bcd4;
+	color: #00bcd4;
+}
+
 .chatConversation {
+	display: flex;
 	overflow-x: hidden;
 	overflow-y: auto;
 	grid-area: chatConversation;
 	max-height: 100%;
 	margin: 1rem;
+	flex-direction: column-reverse;
 }
-
 .fromMessageBox {
 	display: flex;
 	flex-direction: row;
@@ -95,32 +101,42 @@
 }
 
 .messageAvatarBox {
+	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 	width: 10%;
-	margin-right: 0.5rem;
+	margin: 0 0.4rem 1rem 0;
+}
+
+.fromMsgContentTime {
+	flex: 9;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 }
 
 .messageAvatar {
-	object-fit: contain;
-	width: 100%;
+	object-fit: cover;
+	width: 2.4rem;
+	height: 2.4rem;
 	border-radius: 50%;
 }
 
 .fromMessage {
 	display: flex;
-	flex: 1;
 	background-color: #00bcd4;
 	color: #333;
 	border-radius: 25px;
 }
 
 .fromMessageContents {
+	flex: 1;
 	padding: 0.1rem;
 }
 
 .fromMessageTime {
-	font-weight: bold;
 	grid-area: fromMessageTime;
 	font-size: 0.75rem;
 	color: #00bcd4;
@@ -179,6 +195,10 @@
 	right: 0;
 }
 
+.sendButton a {
+	color: #00bcd4;
+}
+
 .chatList {
 	display: flex;
 	grid-area: chatList;
@@ -196,30 +216,38 @@
 	margin: 0.5rem 0.25rem;
 	background-color: #333;
 	flex-direction: row;
+	cursor: pointer;
+}
+
+.avatarChatList {
+	height: 100%;
+	width: 4rem;
 }
 
 .userAvatar {
 	border-radius: 2px 0 0 2px;
-	flex: 1;
+	object-fit: cover;
 	height: 100%;
+	width: 100%;
 }
 .infoBox {
 	display: flex;
 	flex-direction: column;
-	padding: 0 0.25rem;
-	flex: 3;
+	margin-left: 0.25rem;
+	flex: 1;
 }
 .userInfo {
 	color: #00bcd4;
 	display: flex;
 	justify-content: flex-end;
-	margin-bottom: 0.1rem;
+	padding-top: 0.3rem;
+	padding-right: 0.3rem;
 }
 
 .chatInfo {
 	font-size: 0.9rem;
 	color: white;
-	margin-bottom: 0.6rem;
+	max-width: 100%;
 }
 
 .timeInfo {
@@ -246,8 +274,10 @@
 	align-items: center;
 	justify-content: center;
 }
-.chatTitleText {
+.chatTitleText a {
 	cursor: pointer;
+	text-decoration: none;
+	color: #00bcd4;
 }
 
 .collapseButton {
@@ -257,4 +287,8 @@
 	flex: 1;
 	position: relative;
 	right: 0;
+}
+
+.collapseButton a {
+	color: #00bcd4;
 }

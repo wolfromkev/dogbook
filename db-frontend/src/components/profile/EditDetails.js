@@ -24,6 +24,32 @@ const styles = (theme) => ({
 	textField: {
 		margin: '10px auto 10px auto',
 	},
+	iconColor: {
+		color: '#00bcd4',
+	},
+	dialogBox: {
+		backgroundColor: '#333',
+		color: '#00bcd4',
+	},
+	textColor: {
+		color: '#00bcd4',
+
+		'& .MuiInput-underline::after': {
+			borderBottom: '2px solid #00bcd4',
+		},
+
+		'& .MuiFormLabel-root': {
+			color: 'white',
+		},
+		'& .MuiInputBase-input': {
+			color: '#00bcd4',
+		},
+	},
+	dialogBoxRoot: {
+		'& .MuiPaper-root': {
+			backgroundColor: 'transparent',
+		},
+	},
 });
 
 class EditDetails extends Component {
@@ -78,17 +104,18 @@ class EditDetails extends Component {
 					btnClassName={classes.button}
 					btnPlacement='top'
 				>
-					<EditIcon color='primary' />
+					<EditIcon className={classes.iconColor} />
 				</MyButton>
 				<Dialog
 					open={this.state.open}
 					onClose={this.handleClose}
 					fullWidth
 					max-width='sm'
+					className={classes.dialogBoxRoot}
 				>
-					<DialogTitle>Edit Details</DialogTitle>
-					<DialogContent>
-						<form>
+					<DialogTitle className={classes.dialogBox}>Edit Details</DialogTitle>
+					<DialogContent className={classes.dialogBox}>
+						<form className={classes.textColor}>
 							<TextField
 								name='bio'
 								type='text'
@@ -123,11 +150,11 @@ class EditDetails extends Component {
 							></TextField>
 						</form>
 					</DialogContent>
-					<DialogActions>
-						<Button onClick={this.handleClose} color='primary'>
+					<DialogActions className={classes.dialogBox}>
+						<Button onClick={this.handleClose} className={classes.iconColor}>
 							Cancel
 						</Button>
-						<Button onClick={this.handleSubmit} color='primary'>
+						<Button onClick={this.handleSubmit} className={classes.iconColor}>
 							Save
 						</Button>
 					</DialogActions>

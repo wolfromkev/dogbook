@@ -85,6 +85,9 @@ const styles = {
 			margin: '20px 10px',
 		},
 	},
+	iconColor: {
+		color: '#00bcd4',
+	},
 };
 
 class Profile extends Component {
@@ -142,7 +145,7 @@ class Profile extends Component {
 										<MUILink
 											component={Link}
 											to={`/dogs/${handle}`}
-											color='primary'
+											className={classes.iconColor}
 											variant='h5'
 										>
 											@{handle}
@@ -152,14 +155,13 @@ class Profile extends Component {
 										<hr />
 										{location && (
 											<Fragment>
-												<LocationOn color='primary' />
+												<LocationOn className={classes.iconColor} />
 												<span>{location}</span>
 												<hr />
 											</Fragment>
 										)}
 										{website && (
 											<Fragment>
-												<LinkIcon color='primary'></LinkIcon>
 												<a
 													href={website}
 													target='_blank'
@@ -170,12 +172,12 @@ class Profile extends Component {
 												<hr />
 											</Fragment>
 										)}
-										<CalendarToday color='primary' />{' '}
+										<CalendarToday className={classes.iconColor} />{' '}
 										<span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
-										<span>
+										<div>
 											{' '}
 											<EditDetails />{' '}
-										</span>
+										</div>
 									</div>
 								</div>
 							</Grid>

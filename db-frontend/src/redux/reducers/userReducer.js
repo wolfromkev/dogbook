@@ -41,6 +41,7 @@ export default function (state = initialState, action) {
 				...action.payload,
 				loading: false,
 			};
+
 		case LIKE_BARK:
 			return {
 				...state,

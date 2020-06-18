@@ -16,12 +16,21 @@ const style = {
 	},
 	commentData: {
 		marginLeft: 20,
+
+		'& .MuiPaper-root': {
+			color: 'white',
+		},
 	},
 	commentBody: {
 		overflow: 'auto',
 		display: 'inline-block',
 		maxWidth: '100%',
 		wordWrap: 'break-word',
+		color: 'white',
+		margin: '1rem',
+	},
+	textColor: {
+		color: '#00bcd4',
 	},
 };
 
@@ -49,9 +58,9 @@ class Comments extends Component {
 												variant='h5'
 												component={Link}
 												to={`/dogs/${userHandle}`}
-												color='primary'
+												className={classes.textColor}
 											>
-												{userHandle}
+												@{userHandle}
 											</Typography>{' '}
 											<Typography variant='body2' color='textSecondary'>
 												{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}

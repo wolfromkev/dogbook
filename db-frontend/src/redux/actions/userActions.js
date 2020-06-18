@@ -8,6 +8,7 @@ import {
 	MARK_NOTIFICATIONS_READ,
 	FOLLOW_USER,
 	UNFOLLOW_USER,
+	MESSAGE_SENT,
 } from '../types';
 import Axios from 'axios';
 
@@ -34,6 +35,17 @@ export const getUserData = () => (dispatch) => {
 	Axios.get('/dog')
 		.then((res) => {
 			dispatch({ type: SET_USER, payload: res.data });
+		})
+		.catch((err) => console.log(err));
+};
+
+export const sendMessage = (message) => (dispatch) => {
+	Axios.post(`/sendmessage/${message.recipient}`, message)
+		.then((res) => {
+			dispatch({
+				type: MESSAGE_SENT,
+				payload: res.data,
+			});
 		})
 		.catch((err) => console.log(err));
 };

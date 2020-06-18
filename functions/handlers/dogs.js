@@ -48,7 +48,7 @@ exports.signup = (req, res) => {
 				createdAt: new Date().toISOString(),
 				imageUrl: `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o/${defaultImg}?alt=media`,
 				userId,
-				following: [], //Add your name here
+				following: [],
 			};
 			return db.doc(`/dogs/${newUser.handle}`).set(userCredentials);
 		})
@@ -218,9 +218,7 @@ exports.uploadImage = (req, res) => {
 	const path = require('path');
 	const os = require('os');
 	const fs = require('fs');
-
 	const busboy = new BusBoy({ headers: req.headers });
-
 	let imageFileName;
 	let imageToBeUploaded = {};
 
@@ -292,7 +290,6 @@ exports.followUser = (req, res) => {
 						following: admin.firestore.FieldValue.arrayUnion(req.params.handle),
 					})
 					.then(() => {
-						//dogData.following.push(req.params.handle);
 						return res.json(req.params.handle);
 					});
 			} else {
@@ -308,15 +305,11 @@ exports.followUser = (req, res) => {
 };
 
 exports.unfollowUser = (req, res) => {
-	//Checks if the person you want to follow exists
 	const dogDoc = db.doc(`/dogs/${req.params.handle}`);
-
 	const followingDoc = db
 		.collection('dogs')
 		.where('handle', '==', req.user.handle)
 		.where('following', 'array-contains', req.params.handle);
-
-	//let dogData;
 
 	dogDoc
 		.get()
@@ -339,7 +332,6 @@ exports.unfollowUser = (req, res) => {
 						),
 					})
 					.then(() => {
-						//dogData.following.filter((user) => user !== req.params.handle);
 						return res.json(req.params.handle);
 					});
 			} else {
@@ -371,5 +363,84 @@ exports.getFollowedDogs = (req, res) => {
 		.catch((err) => {
 			console.error(err);
 			res.status(500).json({ error: err.code });
+		});
+};
+
+exports.sendMessage = (req, res) => {
+	const message = {
+		content: req.body.body,
+		sender: req.user.sender,
+		recipient: req.params.handle,
+		time: new Date().toISOString(),
+	};
+
+	db.collection('messages')
+		.add({
+			content: req.body.body,
+			sender: req.user.handle,
+			recipient: req.params.handle,
+			time: new Date().toISOString(),
+		})
+		.then((ref) => {
+			return res.json({
+				message,
+			});
+		})
+		.catch((err) => {
+			console.error(err);
+			res.status(500).json({
+				error: err.code,
+			});
+		});
+};
+
+exports.getMessages = (req, res) => {
+	let messages = [];
+
+	let receivedMessages = db
+		.collection('messages')
+		.where('recipient', '==', req.user.handle);
+
+	db.collection('messages')
+		.where('sender', '==', req.user.handle)
+		.get()
+		.then((data) => {
+			data.forEach((doc) => {
+				messages.push({
+					content: doc.data().content,
+					sender: doc.data().sender,
+					recipient: doc.data().recipient,
+					time: doc.data().time,
+				});
+			});
+			return receivedMessages.get();
+		})
+		.then((data) => {
+			data.forEach((doc) => {
+				messages.push({
+					content: doc.data().content,
+					sender: doc.data().sender,
+					recipient: doc.data().recipient,
+					time: doc.data().time,
+				});
+			});
+			return res.json(messages);
+		});
+};
+
+exports.markMessageRead = (req, res) => {
+	let batch = db.batch();
+	req.body.forEach((notificationId) => {
+		const notification = db.doc(`/notifications/${notificationId}`);
+		batch.update(notification, { read: true });
+	});
+	batch
+		.commit()
+		.then(() => {
+			return res.json({ message: 'Notifications marked read' });
+		})
+		.catch((err) => {
+			console.error(err);
+			return res.status(500).json({ error: err.code });
 		});
 };

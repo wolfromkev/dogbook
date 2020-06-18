@@ -32,18 +32,41 @@ const styles = {
 	},
 	dialogContent: {
 		padding: 20,
+		backgroundColor: '#333',
+		'& .MuiPaper-root': {
+			color: '#00bcd4',
+		},
 	},
+
+	dialog: {
+		backgroundColor: 'transparent',
+
+		'& .MuiPaper-root': {
+			backgroundColor: 'transparent',
+		},
+	},
+
 	closeButton: {
 		position: 'absolute',
 		left: '90%',
 	},
-	expandBark: {
-		position: 'absolute',
-	},
+
 	spinnerDiv: {
 		textAlign: 'center',
 		marginTop: 50,
 		marginBottom: 50,
+		'& .MuiCircularProgress-colorPrimary': {
+			color: '#00bcd4',
+		},
+	},
+	iconColor: {
+		color: '#00bcd4',
+	},
+	commentText: {
+		color: 'white',
+		wordWrap: 'break-word',
+		width: '100%',
+		padding: '1rem',
 	},
 };
 
@@ -80,7 +103,7 @@ class BarkDialog extends Component {
 				<CircularProgress size={200} />
 			</div>
 		) : (
-			<Grid container>
+			<Grid container className={classes.gridStuff}>
 				<Grid item>
 					<img src={userImage} alt='Profile' className={classes.profileImage} />
 				</Grid>
@@ -88,22 +111,21 @@ class BarkDialog extends Component {
 				<Grid item>
 					<Typography
 						component={Link}
-						color='primary'
 						variant='h5'
 						to={`/dogs/${userHandle}`}
+						className={classes.iconColor}
 					>
 						@{userHandle}
 					</Typography>
 
-					<Typography variant='body2' color='textSecondary'>
+					<Typography variant='body2'>
 						{dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
 					</Typography>
 				</Grid>
 
-				<Grid item>
-					{' '}
-					<Typography variant='h4'>{body}</Typography>
-				</Grid>
+				<div className={classes.commentText}>
+					<Typography>{body}</Typography>
+				</div>
 
 				<CommentForm barkId={barkId} />
 
@@ -118,10 +140,15 @@ class BarkDialog extends Component {
 					toolTip='See comments!'
 					toolClassName={classes.expandBark}
 				>
-					<ChatIcon color='primary'></ChatIcon>
+					<ChatIcon className={classes.iconColor}></ChatIcon>
 				</MyButton>
 
-				<Dialog open={this.state.open} onClose={this.handleClose} fullWidth>
+				<Dialog
+					open={this.state.open}
+					onClose={this.handleClose}
+					fullWidth
+					className={classes.dialog}
+				>
 					<MyButton
 						toolTip='Close'
 						onClick={this.handleClose}
