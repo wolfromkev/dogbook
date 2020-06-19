@@ -32,7 +32,6 @@ class Home extends Component {
 
 	componentDidMount() {
 		this.props.getBarks();
-		this.props.getMessages();
 	}
 
 	handleSwitch = () => {

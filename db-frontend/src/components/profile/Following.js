@@ -61,7 +61,7 @@ class Following extends Component {
 
 		let followingToggle =
 			following.length !== 0 ? (
-				<Fragment className={classes.followedDog}>
+				<Fragment>
 					{followingArray.map((dog) => {
 						return (
 							<Fragment key={uniqid()}>

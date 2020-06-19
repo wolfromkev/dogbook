@@ -7,6 +7,7 @@ import jwtDecode from 'jwt-decode';
 //redux
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
+import { getBarks, getMessages } from './redux/actions/dataActions';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
@@ -31,6 +32,8 @@ if (token) {
 		store.dispatch({ type: SET_AUTHENTICATED });
 		axios.defaults.headers.common['Authorization'] = token;
 		store.dispatch(getUserData());
+		store.dispatch(getBarks());
+		store.dispatch(getMessages());
 	}
 }
 

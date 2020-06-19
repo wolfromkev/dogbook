@@ -62,6 +62,9 @@ const style = {
 		'& .MuiFormLabel-root.Mui-focused': {
 			color: '#00bcd4',
 		},
+		'& .MuiInputBase-root': {
+			color: 'white',
+		},
 	},
 	Title: {
 		color: 'white',

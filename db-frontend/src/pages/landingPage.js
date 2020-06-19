@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getBarks } from '../redux/actions/dataActions';
 import { withStyles } from '@material-ui/core';
 import LoginSignup from '../components/profile/loginSignup';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import Link from 'react-router-dom/Link';
-import Typography from '@material-ui/core/Typography';
 
 const styles = {
 	root: {
@@ -62,14 +55,32 @@ class Home extends Component {
 	}
 
 	render() {
-		const { barks } = this.props.data;
 		const { classes } = this.props;
 
 		return (
 			<div className={classes.maindiv}>
 				<LoginSignup history={this.props.history} />
+			</div>
+		);
+	}
+}
 
-				<h1 className={classes.textColor}> See what the dogs are barking! </h1>
+const mapStateToProps = (state) => ({
+	data: state.data,
+	authenticated: state.user.authenticated,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Home));
+
+/*
+
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Link from 'react-router-dom/Link';
+import Typography from '@material-ui/core/Typography';
+
+<h1 className={classes.textColor}> See what the dogs are barking! </h1>
 				<div className={classes.root}>
 					<GridList cellHeight={150} spacing={16} className={classes.gridList}>
 						{barks.map((bark) => (
@@ -99,18 +110,5 @@ class Home extends Component {
 						))}
 					</GridList>
 				</div>
-			</div>
-		);
-	}
-}
 
-Home.propTypes = {
-	getBarks: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	data: state.data,
-	authenticated: state.user.authenticated,
-});
-
-export default connect(mapStateToProps, { getBarks })(withStyles(styles)(Home));
+				*/
